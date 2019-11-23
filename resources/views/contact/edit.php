@@ -1,9 +1,13 @@
 <?php
 include '../../../php/model/crud/ContactCrud.php';
+include '../../../php/model/crud/CompanyCrud.php';
 
 $contact_crud = new ContactCrud();
-$contacts = $contact_crud->all();
+$company_crud = new CompanyCrud();
+$companies = $company_crud->companies();
+$contact = $contact_crud->find($_POST['id']);
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -81,69 +85,66 @@ $contacts = $contact_crud->all();
           </li>
         </ol>
 
-        <?php include("../../alerts/alerts.php") ?>
-
-        <!-- DataTables Example -->
-        <div class="card mb-3">
-          <div class="card-header">
-            <i class="fas fa-table"></i>
-            Tabla Contactos
-            <a href="create.php" class="btn btn-sm btn-primary fa-pull-right">
-                New
-            </a>
-          </div>
-          <div class="card-body">
-            <div class="table-responsive">
-              <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                <thead>
-                  <tr>
-                    <th>Company ID</th>
-                    <th>Name</th>
-                    <th>Address</th>
-                    <th>Email</th>
-                    <th>Phone</th>
-                    <th>Actions</th>
-                  </tr>
-                </thead>
-                <tfoot>
-                  <tr>
-                    <th>Company ID</th>
-                    <th>Name</th>
-                    <th>Address</th>
-                    <th>Email</th>
-                    <th>Phone</th>
-                    <th>Actions</th>
-                  </tr>
-                </tfoot>
-                <tbody>
-                    <?php foreach ($contacts->fetchAll() as $contact) {?>
-                        <tr>
-                            <td><?php echo $contact['company_id'] ?></td>
-                            <td><?php echo $contact['contact_name'] ?></td>
-                            <td><?php echo $contact['contact_address'] ?></td>
-                            <td><?php echo $contact['contact_email'] ?></td>
-                            <td><?php echo $contact['contact_phone'] ?></td>
-                            <td>
-                              <div class="btn-group" role="group">
-                                <form action="edit.php" method="post">
-                                  <input type='hidden' name='id' value='<?php echo $contact['id']?>'>
-                                  <input class="btn btn-warning btn-sm" type="submit" value="Edit">
-                                </form>
-                                <form action="../../../php/controller/ContactController.php" method="post">
-                                  <input type='hidden' name='delete' value='<?php echo $contact['id']?>'>
-                                  <input class="btn btn-danger btn-sm" type="submit" value="Delete">
-                                </form>
-                              </div>
-                            </td>                            
-                        </tr>
-                    <?php }?>
-                </tbody>
-              </table>
+        <div class="card card-register mx-auto mt-5">
+      <div class="card-header">
+          Register a Contact
+          <a href="index.php" class="btn btn-sm btn-primary fa-pull-right">
+            Back
+          </a>
+      </div>
+      <div class="card-body">
+        <form action="../../../php/controller/ContactController.php" method="POST">
+          <div class="form-group">
+            <div class="form-row">
+              <div class="col-md-8">
+                <div class="form-group">
+                  <label for="contact_name">Contact Name</label>
+                  <input type="text" id="contact_name" name="contact_name" class="form-control" placeholder="Contact Name" required="required" autofocus="autofocus" value="<?php echo $contact['contact_name'] ?>">
+                </div>
+              </div>
+              <div class="form-group col-md-4">
+                <label for="company_id">Company</label>
+                <select id="company_id" name="company_id" class="form-control">
+                  <option selected>Company...</option>
+                  <?php foreach ($companies as $company) {?>
+                    <option value="<?php echo $company['id'] ?>"><?php echo $company['company_name'] ?></option>
+                  <?php }?>
+                </select>
+              </div>
             </div>
           </div>
-        </div>
 
-
+          <div class="form-group">
+            <div class="form-row">
+              <div class="col-md-12">
+                <div class="form-label-group">
+                  <input type="text" id="contact_address" name="contact_address" class="form-control" placeholder="Address" required="required" autofocus="autofocus" value="<?php echo $contact['contact_address'] ?>">
+                  <label for="contact_address">Address</label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="form-row">
+              <div class="col-md-6">
+                <div class="form-label-group">
+                  <input type="text" id="contact_email" name="contact_email" class="form-control" placeholder="Email" required="required" value="<?php echo $contact['contact_email'] ?>">
+                  <label for="contact_email">Email</label>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-label-group">
+                  <input type="text" id="contact_phone" name="contact_phone" class="form-control" placeholder="Phone" required="required" value="<?php echo $contact['contact_phone'] ?>">
+                  <label for="contact_phone">Phone</label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <input type='hidden' name='update' value='<?php echo $contact['id'] ?>'>
+          <input class="btn btn-primary btn-block" type="submit" value="Update">
+        </form>
+      </div>
+    </div>
 
       </div>
       <!-- /.container-fluid -->
@@ -192,3 +193,4 @@ $contacts = $contact_crud->all();
 </body>
 
 </html>
+

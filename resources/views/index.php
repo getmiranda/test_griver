@@ -93,6 +93,7 @@ $companies = $company_crud->companies();
                 <li>Bootstrap 4.3.1</li>
                 <li>jQuery 3.4.1</li>
                 <li>MySQL 8.0</li>
+                <li>XAMP apache</li>
               </ul>
             </div>
           </div>

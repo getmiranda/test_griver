@@ -23,7 +23,7 @@ CREATE TABLE contact (
     contact_email VARCHAR(100) NOT NULL,
     contact_phone VARCHAR(10) NOT NULL,
     PRIMARY KEY (id),
-    CONSTRAINT FK_Company_Contact FOREIGN KEY (company_id) REFERENCES company (id)
+    CONSTRAINT FK_Company_Contact FOREIGN KEY (company_id) REFERENCES company (id) ON DELETE CASCADE
 );
 
 /* INSERTS ----------------------------------------------------------------------*/
