@@ -81,74 +81,70 @@ $companies = $company_crud->companies();
           </li>
         </ol>
 
-        <?php include("../../alerts/alerts.php") ?>
-
-        <!-- DataTables Example -->
-        <div class="card mb-3">
-          <div class="card-header">
-            <i class="fas fa-table"></i>
-            Tabla Empresas
-            <a href="create.php" class="btn btn-sm btn-primary fa-pull-right">
-                New
-            </a>
-          </div>
-          <div class="card-body">
-            <div class="table-responsive">
-              <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                <thead>
-                  <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>RFC</th>
-                    <th>Address</th>
-                    <th>Bussiness Stream</th>
-                    <th>Web URL</th>
-                    <th>Country</th>
-                    <th>Actions</th>
-                  </tr>
-                </thead>
-                <tfoot>
-                  <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>RFC</th>
-                    <th>Address</th>
-                    <th>Bussiness Stream</th>
-                    <th>Web URL</th>
-                    <th>Country</th>
-                    <th>Actions</th>
-                  </tr>
-                </tfoot>
-                <tbody>
-                    <?php foreach ($companies as $company) {?>
-                        <tr>
-                            <td><?php echo $company['id'] ?></td>
-                            <td><?php echo $company['company_name'] ?></td>
-                            <td><?php echo $company['company_rfc'] ?></td>
-                            <td><?php echo $company['company_address'] ?></td>
-                            <td><?php echo $company['business_stream'] ?></td>
-                            <td><?php echo $company['company_website_url'] ?></td>
-                            <td><?php echo $company['company_country'] ?></td>
-                            <td>
-                              <div class="btn-group" role="group">
-                                <!-- <a class="btn btn-warning btn-sm" href="edit.php" role="button">Edit</a> -->
-                                <form action="edit.php" method="post">
-                                  <input type='hidden' name='id' value='<?php echo $company['id']?>'>
-                                  <input class="btn btn-warning btn-sm" type="submit" value="Edit">
-                                </form>
-                                <form action="../../../php/controller/CompanyController.php" method="post">
-                                  <input type='hidden' name='delete' value='<?php echo $company['id']?>'>
-                                  <input class="btn btn-danger btn-sm" type="submit" value="Delete">
-                                </form>
-                              </div>
-                            </td>
-                        </tr>
-                    <?php }?>
-                </tbody>
-              </table>
+        <div class="card card-register mx-auto mt-5">
+      <div class="card-header">
+          Register a Company
+          <a href="index.php" class="btn btn-sm btn-primary fa-pull-right">
+            Back
+          </a>
+      </div>
+      <div class="card-body">
+        <form action="../../../php/controller/CompanyController.php" method="POST">
+          <div class="form-group">
+            <div class="form-row">
+              <div class="col-md-6">
+                <div class="form-label-group">
+                  <input type="text" id="company_name" name="company_name" class="form-control" placeholder="Company Name" required="required" autofocus="autofocus">
+                  <label for="company_name">Company Name</label>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-label-group">
+                  <input type="text" id="company_rfc" name="company_rfc" class="form-control" placeholder="RFC" required="required">
+                  <label for="company_rfc">RFC</label>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
+
+          <div class="form-group">
+            <div class="form-row">
+              <div class="col-md-8">
+                <div class="form-label-group">
+                  <input type="text" id="company_address" name="company_address" class="form-control" placeholder="Address" required="required" autofocus="autofocus">
+                  <label for="company_address">Address</label>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-label-group">
+                  <input type="text" id="company_country" name="company_country" class="form-control" placeholder="Country" required="required">
+                  <label for="company_country">Country</label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="form-row">
+              <div class="col-md-6">
+                <div class="form-label-group">
+                  <input type="text" id="business_stream" name="business_stream" class="form-control" placeholder="Bussiness Stream" required="required">
+                  <label for="business_stream">Bussiness Stream</label>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-label-group">
+                  <input type="text" id="company_website_url" name="company_website_url" class="form-control" placeholder="Web URL" required="required">
+                  <label for="company_website_url">Web URL</label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <input type='hidden' name='create' value='create'>
+          <input class="btn btn-primary btn-block" type="submit" value="Register">
+          <!-- <a class="btn btn-primary btn-block" href="login.html">Register</a> -->
+        </form>
+      </div>
+    </div>
 
       </div>
       <!-- /.container-fluid -->

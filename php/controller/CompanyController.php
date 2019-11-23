@@ -22,11 +22,17 @@ $company = new Company();
 		//llama a la función insert definida en el CompanyCrud
 		$company_crud->insert( $company );
 
-		header('Location: ../views/company/index.php?msj=registrop_OK');
+		header('Location: ../../resources/views/company/index.php?alert=create_ok');
+	}
+	else if ( isset( $_POST['delete'] ) ) {
+		$company_crud->delete($_POST['delete']);
+
+		header('Location: ../../resources/views/company/index.php?alert=delete_ok');
 	}
 
 	else if ( isset( $_POST['update'] ) ) {
 
+		$company->set_id( $_POST['update'] );
 		$company->set_company_name( $_POST['company_name'] );
 		$company->set_company_rfc( $_POST['company_rfc'] );
 		$company->set_company_address( $_POST['company_address'] );
@@ -37,12 +43,7 @@ $company = new Company();
 		//llama a la función insert definida en el CompanyCrud
 		$company_crud->update( $company );
 
-		header('Location: ../view/admin/tabla2.php?msj=update_OK');
+		header('Location: ../../resources/views/company/index.php?alert=update_ok');
 	}
 
-	// si la variable accion enviada por GET es == 'e' llama al crud y elimina un company
-	else if ($_GET['accion']=='e') {
-		$company_crud->delete($_GET['id']);
-		header('Location: ../view/admin/tabla2.php?msj=delete_OK');	
-	}
 ?>

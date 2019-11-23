@@ -10,9 +10,9 @@ class Company{
 
     function __construct() { }
 
-    public function get_company_id()
+    public function get_id()
     {
-        return $this->company_id;
+        return $this->id;
     }
 
     public function get_company_name()
@@ -43,6 +43,11 @@ class Company{
     public function get_company_country()
     {
         return $this->company_country;
+    }
+
+    public function set_id($id)
+    {
+        $this->id = $id;
     }
 
     public function set_company_name($company_name)
